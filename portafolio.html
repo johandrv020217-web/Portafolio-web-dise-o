@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portafolio Johan Rodríguez</title>
+  <style>
+    body {margin:0;font-family:Arial,Helvetica,sans-serif;background:#f9fafb;color:#333;}
+    header {background:#6a0dad;position:sticky;top:0;z-index:30;box-shadow:0 2px 4px rgba(0,0,0,0.1);}
+    header .container {max-width:1200px;margin:0 auto;padding:1rem;display:flex;justify-content:space-between;align-items:center;}
+    header h1, nav a {color:#fff;}
+    nav a {margin-left:1rem;text-decoration:none;font-weight:500;}
+    nav a:hover {color:#ffccff;}
+    section {max-width:1200px;margin:4rem auto;padding:0 1rem;}
+    h2,h3 {font-weight:bold;margin-bottom:1rem;}
+    .intro {text-align:center;}
+    .intro p {max-width:700px;margin:0 auto;color:#555;margin-top:-1rem;}
+
+    .banner {
+      margin-top: 1rem;
+      background: url('conception-fond-hologramme-couleur-pastel-abstrait-horizontal_29865-3868.jpg') no-repeat center center;
+      background-size: cover;
+      height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .banner h2 {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 2.5rem;
+      color: #000;
+      text-shadow: 1px 1px 6px rgba(255, 255, 255, 0.6);
+      padding: 0 1rem;
+    }
+
+    .habilidades {
+      background: #fff;
+      border-radius: 8px;
+      padding: 2rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      border: 4px solid;
+      border-image: linear-gradient(135deg, #6a0dad, #ffccff, #b57edc) 1;
+      transition: all 0.3s ease;
+    }
+
+    .habilidades:hover {
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+      border-image: linear-gradient(135deg, #b57edc, #ffb6c1, #6a0dad) 1;
+    }
+
+    .habilidades-grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:2rem;
+    }
+
+    .habilidades-grid ul {
+      list-style:disc;
+      margin-left:1.5rem;
+      color:#444;
+    }
+
+    .habilidades-grid li {
+      margin-bottom:0.4rem;
+    }
+
+    .proyectos {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:1.5rem;
+    }
+
+    .proyecto {
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 4px solid;
+      border-image: linear-gradient(135deg, #6a0dad, #ffccff, #b57edc) 1;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .proyecto:hover {
+      transform: scale(1.02);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+      border-image: linear-gradient(135deg, #b57edc, #ffb6c1, #6a0dad) 1;
+    }
+
+    .proyecto img {width:100%;height:180px;object-fit:cover;}
+    .proyecto div {padding:1rem;}
+    .proyecto h4 {margin:0 0 .5rem 0;}
+    .proyecto p {color:#555;font-size:0.9rem;}
+    .proyecto a {display:inline-block;margin-top:.5rem;color:#4f46e5;text-decoration:none;font-weight:500;}
+    .proyecto a:hover {text-decoration:underline;}
+
+    #galeria {display:none;}
+    #videos {display:none;opacity:0;transition:opacity 0.6s ease;}
+    #videos.visible {display:block;opacity:1;}
+    .videos {display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;}
+    .videos iframe {width:100%;aspect-ratio:16/9;border:none;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.1);}
+
+    #contacto p {font-size:1rem;color:#333;}
+    footer {background:#fff;border-top:1px solid #eee;text-align:center;padding:1.5rem;margin-top:4rem;color:#555;font-size:0.9rem;}
+
+    .lightbox {
+      display:none;position:fixed;z-index:1000;top:0;left:0;width:100%;height:100%;
+      background:rgba(0,0,0,0.85);align-items:center;justify-content:center;
+    }
+
+    .lightbox img {max-width:90%;max-height:80%;border-radius:8px;box-shadow:0 0 20px #000;}
+    .lightbox .close, .lightbox .prev, .lightbox .next {
+      position:absolute;color:#fff;font-size:2rem;cursor:pointer;
+      background:rgba(0,0,0,0.3);padding:0.4em 0.6em;border-radius:50%;
+      user-select:none;
+    }
+
+    .lightbox .close {top:20px;right:30px;}
+    .lightbox .prev {top:50%;left:30px;transform:translateY(-50%);}
+    .lightbox .next {top:50%;right:30px;transform:translateY(-50%);}
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <h1>Portafolio Johan Rodríguez</h1>
+      <nav>
+        <a href="#inicio">Inicio</a>
+        <a href="#" id="galeriaLink">Galería</a>
+        <a href="#" id="videosLink">Videos</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Banner -->
+  <div class="banner">
+    <h2>Bienvenido a mi portafolio</h2>
+  </div>
+
+  <main>
+    <section id="inicio" class="intro">
+      <p style="margin-top: -1rem;">Este portafolio está enfocado en mis proyectos de diseño y desarrollo web, 
+    donde combino la creatividad con la funcionalidad para construir páginas modernas, 
+    atractivas y fáciles de usar. Aquí podrás encontrar ejemplos de maquetación, uso de HTML, 
+    CSS y técnicas de diseño responsivo que permiten que cada sitio se adapte de manera correcta 
+    a diferentes dispositivos y pantallas. Mi intención es mostrar cómo una buena estructura visual 
+    y un código limpio pueden trabajar juntos para ofrecer experiencias digitales claras, 
+    intuitivas y profesionales.</p>
+    </section>
+
+    <section id="habilidades" class="habilidades">
+      <h3>Habilidades</h3>
+      <p><strong>Especializado en:</strong> Publicidad gráfica y estampado textil.</p>
+      <p><strong>Conocimientos en programas de diseño y multimedia:</strong></p>
+      <div class="habilidades-grid">
+        <ul>
+          <li>Adobe Illustrator</li>
+          <li>Photoshop</li>
+          <li>InDesign</li>
+          <li>Media Encoder</li>
+          <li>Animate</li>
+          <li>Serigrafía</li>
+        </ul>
+        <ul>
+          <li>Prezi</li>
+          <li>Canva</li>
+          <li>Lightroom</li>
+          <li>Premiere Pro</li>
+          <li>Clipchamp</li>
+          <li>Fotografía</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="galeria">
+      <div class="galeria-grid">
+        <img src="epic 1.png" alt="Epic 1">
+        <img src="epic 2.png" alt="Epic 2">
+        <img src="epic 3.png" alt="Epic 3">
+        <img src="epic 4.png" alt="Epic 4">
+        <img src="web 1.png"  alt="Web 1">
+        <img src="web 2.png"  alt="Web 2">
+        <img src="web 3.png"  alt="Web 3">
+        <img src="web 4.png"  alt="Web 4">
+      </div>
+    </section>
+
+    <section id="videos">
+      <h3>Videos</h3>
+      <div class="videos">
+        <iframe src="https://www.youtube.com/embed/JRtLtYsHuXA" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/3zqX4Ny4ifI" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/Vpe7euLxRwg" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/y44tzo82rwE" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <section id="proyectos">
+      <h3>Proyectos Destacados</h3>
+      <div class="proyectos">
+        <div class="proyecto">
+          <a href="https://drive.google.com/file/d/1-ea42YJKBQFxKlfV0Mo3IjzUbuWCBAd9/view?usp=sharing" target="_blank">
+            <img src="proyectos/epicgames/preview.jpg" alt="Epic Games">
+          </a>
+          <div>
+            <h4>Epic Games – Maquetación Web</h4>
+            <p>Código HTML y CSS para una página estilo Epic Games con diseño responsivo.</p>
+            <a href="https://drive.google.com/file/d/1-ea42YJKBQFxKlfV0Mo3IjzUbuWCBAd9/view?usp=sharing" target="_blank">Descargar proyecto</a>
+          </div>
+        </div>
+        <div class="proyecto">
+          <a href="https://drive.google.com/file/d/1OC4rVqoeDppQ6115wbQ9_fb7QT5VonXu/view?usp=sharing" target="_blank">
+            <img src="proyectos/johan/preview.jpg" alt="Xbox Web">
+          </a>
+          <div>
+            <h4>Xbox Web – Johan Rodríguez</h4>
+            <p>Proyecto completo con imágenes y maquetación personalizada en HTML y CSS.</p>
+            <a href="https://drive.google.com/file/d/1OC4rVqoeDppQ6115wbQ9_fb7QT5VonXu/view?usp=sharing" target="_blank">Descargar proyecto</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <h3>Contacto</h3>
+      <p><strong>Nombre:</strong> Johan Rodríguez</p>
+      <p><strong>Correo de contacto:</strong> 
+        <a href="mailto:damianvanegas2204@gmail.com">damianvanegas2204@gmail.com</a>
+      </p>
+      <p><strong>Instagram:</strong> <a href="https://instagram.com/star.desings" target="_blank">@star.desings</a></p>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 Johan Rodríguez — Portafolio web.
+  </footer>
+
+  <div class="lightbox" id="lightbox">
+    <span class="close" id="closeBtn">&times;</span>
+    <span class="prev" id="prevBtn">&#10094;</span>
+    <span class="next" id="nextBtn">&#10095;</span>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+  <script>
+    const images = document.querySelectorAll('.galeria-grid img');
+    const videosSection = document.getElementById('videos');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const closeBtn = document.getElementById('closeBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const linkGaleria = document.getElementById('galeriaLink');
+    const linkVideos = document.getElementById('videosLink');
+
+    let current = 0;
+
+    linkGaleria.addEventListener('click', e => {
+      e.preventDefault();
+      showLightbox(0);
+    });
+
+    linkVideos.addEventListener('click', e => {
+      e.preventDefault();
+      videosSection.classList.add('visible');
+      videosSection.scrollIntoView({behavior:'smooth'});
+    });
+
+    function showLightbox(index){
+      current = index;
+      lightboxImg.src = images[current].src;
+      lightbox.style.display = 'flex';
+    }
+
+    images.forEach((img,i)=>{
+      img.addEventListener('click',()=> showLightbox(i));
+    });
+
+    function closeLightbox(){ lightbox.style.display='none'; }
+    function nextImage(){
+      current = (current + 1) % images.length;
+      lightboxImg.src = images[current].src;
+    }
+    function prevImage(){
+      current = (current - 1 + images.length) % images.length;
+      lightboxImg.src = images[current].src;
+    }
+
+    closeBtn.addEventListener('click', closeLightbox);
+    nextBtn.addEventListener('click', nextImage);
+    prevBtn.addEventListener('click', prevImage);
+
+    document.addEventListener('keydown', e => {
+      if (lightbox.style.display === 'flex') {
+        if (e.key === 'ArrowRight') nextImage();
+        if (e.key === 'ArrowLeft') prevImage();
+        if (e.key === 'Escape') closeLightbox();
+      }
+    });
+  </script>
+</body>
+</html>
